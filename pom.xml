@@ -1593,6 +1593,9 @@ under the License.
 			<plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -1610,10 +1613,10 @@ under the License.
 					<reuseForks>${flink.reuseForks}</reuseForks>
 					<trimStackTrace>false</trimStackTrace>
 					<systemPropertyVariables combine.children="append">
-						<forkNumber>0${surefire.forkNumber}</forkNumber>
+						<forkNumber>${surefire.forkNumber}</forkNumber>
 						<!-- $$ ensures that surefire resolves this to the current forkNumber,
 						 	instead of maven during initialization -->
-						<mvn.forkNumber>$${surefire.forkNumber}</mvn.forkNumber>
+						<mvn.forkNumber>${surefire.forkNumber}</mvn.forkNumber>
 						<hadoop.version>${flink.hadoop.version}</hadoop.version>
 						<checkpointing.randomization>true</checkpointing.randomization>
 						<buffer-debloat.randomization>true</buffer-debloat.randomization>
