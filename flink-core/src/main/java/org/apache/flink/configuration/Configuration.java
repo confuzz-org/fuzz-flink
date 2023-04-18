@@ -76,6 +76,10 @@ public class Configuration extends ExecutionConfig.GlobalJobParameters
 
     /** Creates a new empty configuration. */
     public Configuration() {
+        this.confData = GlobalConfiguration.loadConfiguration().confData;
+    }
+
+    public Configuration(Boolean isConfuzz) {
         this.confData = new HashMap<>();
     }
 
@@ -187,6 +191,26 @@ public class Configuration extends ExecutionConfig.GlobalJobParameters
         String value = getOptional(configOption).orElse(overrideDefault);
         ConfigTracker.trackGet(configOption.key(), value);
         return value;
+    }
+
+    public void generatorSet(String key, String value) {
+        setValueInternal(key, value, false, true);
+    }
+
+    <T> void setValueInternal(String key, T value, boolean canBePrefixMap, boolean isGenerator) {
+        if (key == null) {
+            throw new NullPointerException("Key must not be null.");
+        }
+        if (value == null) {
+            throw new NullPointerException("Value must not be null.");
+        }
+
+        synchronized (this.confData) {
+            if (canBePrefixMap) {
+                removePrefixMap(this.confData, key);
+            }
+            this.confData.put(key, value);
+        }
     }
 
     /**

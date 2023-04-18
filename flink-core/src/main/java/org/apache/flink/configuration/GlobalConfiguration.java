@@ -41,7 +41,7 @@ public final class GlobalConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(GlobalConfiguration.class);
 
-    public static final String FLINK_CONF_FILENAME = "flink-conf.yaml";
+    public static final String FLINK_CONF_FILENAME = "ctest.yaml";
 
     // the keys whose values should be hidden
     private static final String[] SENSITIVE_KEYS =
@@ -75,7 +75,7 @@ public final class GlobalConfiguration {
      * @return Returns the Configuration
      */
     public static Configuration loadConfiguration() {
-        return loadConfiguration(new Configuration());
+        return loadConfiguration(new Configuration(true));
     }
 
     /**
@@ -85,7 +85,8 @@ public final class GlobalConfiguration {
      * @return Returns the loaded global configuration with dynamic properties
      */
     public static Configuration loadConfiguration(Configuration dynamicProperties) {
-        final String configDir = System.getenv(ConfigConstants.ENV_FLINK_CONF_DIR);
+        //final String configDir = System.getenv(ConfigConstants.ENV_FLINK_CONF_DIR);
+        String configDir = System.getProperty("user.dir");
         if (configDir == null) {
             return new Configuration(dynamicProperties);
         }
@@ -187,7 +188,7 @@ public final class GlobalConfiguration {
      * @see <a href="http://www.yaml.org/spec/1.2/spec.html">YAML 1.2 specification</a>
      */
     private static Configuration loadYAMLResource(File file) {
-        final Configuration config = new Configuration();
+        final Configuration config = new Configuration(true);
 
         try (BufferedReader reader =
                 new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
@@ -229,7 +230,7 @@ public final class GlobalConfiguration {
                         continue;
                     }
 
-                    config.setString(key, value);
+                    config.generatorSet(key, value);
                 }
             }
         } catch (IOException e) {
