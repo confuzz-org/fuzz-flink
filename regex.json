@@ -1,0 +1,6 @@
+[
+  {
+    "name": "fs.s3a.select.output.csv.quote.fields",
+    "regex": "always|asneeded"
+  }
+]

@@ -28,7 +28,7 @@ public class TestDebug {
             System.out.println("always");
             count ++;
             // This should fail if the fuzzer is not specificed with -DexpectedException=java.lang.AssertionError
-            assertEquals("200", conf.getString("fake3", "null"));
+            assertEquals("300", conf.getString("fake3", "null"));
         } else if (str.equals("asneeded")) {
             System.out.println("asneeded");
             conf.setString("fake-config1","15");

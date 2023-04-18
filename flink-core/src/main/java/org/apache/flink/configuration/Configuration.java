@@ -76,7 +76,12 @@ public class Configuration extends ExecutionConfig.GlobalJobParameters
 
     /** Creates a new empty configuration. */
     public Configuration() {
-        this.confData = GlobalConfiguration.loadConfiguration().confData;
+        Configuration generatedConfig = ConfigurationGenerator.getGeneratedConfig();
+        if (generatedConfig != null) {
+            this.confData = generatedConfig.confData;
+        } else {
+            this.confData = GlobalConfiguration.loadConfiguration().confData;
+        }
     }
 
     public Configuration(Boolean isConfuzz) {
