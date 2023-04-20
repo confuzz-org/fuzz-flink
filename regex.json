@@ -2,5 +2,13 @@
   {
     "name": "fs.s3a.select.output.csv.quote.fields",
     "regex": "always|asneeded"
+  },
+  {
+    "name": "delimited-format.numSamples",
+    "lower": 0
+  },
+  {
+    "name": "cluster.intercept-user-system-exit",
+    "regex": "DISABLED|LOG|THROW"
   }
 ]
