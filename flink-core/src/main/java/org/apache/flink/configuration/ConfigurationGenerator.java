@@ -11,7 +11,7 @@ import java.io.*;
 public class ConfigurationGenerator extends Generator<Configuration> {
     private static Configuration generatedConf = null;
     private static String setMethodName = "generatorSet";
-    private static Class<?>[] setParameterTypes = {String.class, String.class};
+    private static Class<?>[] setParameterTypes = {String.class, Object.class};
 
     /**
      * Constructor for Configuration Generator

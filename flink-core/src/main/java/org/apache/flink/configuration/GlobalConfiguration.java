@@ -135,12 +135,16 @@ public final class GlobalConfiguration {
         final File yamlConfigFile = new File(confDirFile, FLINK_CONF_FILENAME);
 
         if (!yamlConfigFile.exists()) {
-            throw new IllegalConfigurationException(
-                    "The Flink config file '"
-                            + yamlConfigFile
-                            + "' ("
-                            + yamlConfigFile.getAbsolutePath()
-                            + ") does not exist.");
+            // if the file does not exist, we create an empty file
+            try {
+                if (!yamlConfigFile.createNewFile()) {
+                    throw new IOException(
+                            "Could not create new file " + yamlConfigFile.getAbsolutePath());
+                }
+            } catch (IOException e) {
+                throw new IllegalConfigurationException(
+                        "Could not create new file " + yamlConfigFile.getAbsolutePath(), e);
+            }
         }
 
         Configuration configuration = loadYAMLResource(yamlConfigFile);

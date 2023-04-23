@@ -198,8 +198,8 @@ public class Configuration extends ExecutionConfig.GlobalJobParameters
         return value;
     }
 
-    public void generatorSet(String key, String value) {
-        setValueInternal(key, value, false, true);
+    public void generatorSet(String key, Object value) {
+        setValueInternal(key, String.valueOf(value), false, true);
     }
 
     <T> void setValueInternal(String key, T value, boolean canBePrefixMap, boolean isGenerator) {
