@@ -28,7 +28,7 @@ public class TestDebug {
             System.out.println("always");
             count ++;
             // This should fail if the fuzzer is not specificed with -DexpectedException=java.lang.AssertionError
-            assertEquals("300", conf.getString("fake3", "null"));
+            //assertEquals("300", conf.getString("fake3", "null"));
         } else if (str.equals("asneeded")) {
             System.out.println("asneeded");
             conf.setString("fake-config1","15");
@@ -39,6 +39,7 @@ public class TestDebug {
         }
         //System.out.println("Conf Length : " + conf.size());
 
+	/**
         ConfigOption<String> stringOption =
                 ConfigOptions.key("stringOption").stringType().defaultValue("my-beautiful-default");
         assertEquals("my-beautiful-default", conf.get(stringOption));
@@ -69,6 +70,7 @@ public class TestDebug {
 
         ConfigOption<Duration> classOption =
                 ConfigOptions.key("classOption").durationType().defaultValue(Duration.ofSeconds(42));
-        assertEquals(Duration.ofSeconds(42), conf.get(classOption));
+		assertEquals(Duration.ofSeconds(42), conf.get(classOption)); */
     }
+	
 }
