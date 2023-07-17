@@ -803,11 +803,11 @@ public class Configuration extends ExecutionConfig.GlobalJobParameters
         try {
             if (option.isList()) {
                 Optional<T> value = rawValue.map(v -> ConfigurationUtils.convertToList(v, clazz));
-                ConfigTracker.trackGet(option.key(), value);
+                ConfigTracker.trackGet(option.key(), value.orElse(null));
                 return value;
             } else {
                 Optional<T> value =  rawValue.map(v -> ConfigurationUtils.convertValue(v, clazz));
-                ConfigTracker.trackGet(option.key(), value);
+                ConfigTracker.trackGet(option.key(), value.orElse(null));
                 return value;
             }
         } catch (Exception e) {
@@ -912,18 +912,18 @@ public class Configuration extends ExecutionConfig.GlobalJobParameters
             final Object valueFromExactKey = this.confData.get(key);
             if (!canBePrefixMap || valueFromExactKey != null) {
                 Optional<Object> value = Optional.ofNullable(valueFromExactKey);
-                ConfigTracker.trackGet(key, value);
+                ConfigTracker.trackGet(key, value.orElse(null));
                 return value;
             }
             final Map<String, String> valueFromPrefixMap =
                     convertToPropertiesPrefixed(confData, key);
             if (valueFromPrefixMap.isEmpty()) {
                 Optional<Object> value = Optional.empty();
-                ConfigTracker.trackGet(key, value);
+                ConfigTracker.trackGet(key, value.orElse(null));
                 return value;
             }
             Optional<Object> value = Optional.of(valueFromPrefixMap);
-            ConfigTracker.trackGet(key, value);
+            ConfigTracker.trackGet(key, value.orElse(null));
             return value;
         }
     }
@@ -940,7 +940,7 @@ public class Configuration extends ExecutionConfig.GlobalJobParameters
      */
     private Optional<Object> getRawValueFromOption(ConfigOption<?> configOption) {
         Optional<Object> value = applyWithOption(configOption, this::getRawValue);
-        ConfigTracker.trackGet(configOption.key(), value);
+        ConfigTracker.trackGet(configOption.key(), value.orElse(null));
         return value;
     }
 
